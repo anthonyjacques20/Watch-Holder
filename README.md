@@ -13,32 +13,31 @@ gunicorn -b <ip_address>:<port> main:app
 
 When running with ip_address, I was able to access it over wifi from my chromebook.
 
-Need to investigate nginx and how it passes requests from a URL to a locally hosted server. (Seems similar to Microsoft's IIS)
+Created an IP Passthrough on modem so that Raspberry Pi has public IP address.
+Setup Dynu Dynamic DNS to update the IP address on my website whenever my Raspberry Pi has its IP address updated
 
-Next step is to be able to access from anywhere, this will allow me to command it from Google Assistant. -Just need to figure out nginx
+In order to access from anywhere (so I can command it from Google Assistant), I am going to use Dynu to redirect to raspberry pi's IP address where nginx will point to the locally running server via uswgi
+
+Was getting a 502 Bad Gateway from nginx because my uwsgi file (WatchHolder.ini) was incorrectly pointing at main.sock and should've been pointed at WatchHolder.sock
 
 Should I start running my raspberry pi from anthonyjacques20.com??! And stop hosting it from heroku?!
     -I could but would have to configure a lot of database stuff to make that work which sounds like a lot of work...
     -Will focus on the watch holder website for now and redirect to it from Dynu
 
-
-## To resume:
-1. Need to access code from anywhere so Google Assistant can access it
-1. Need to figure out why we are getting a 502 Bad Gateway from nginx...
-    1. Was getting a 502 Bad Gateway from nginx because my uwsgi file (WatchHolder.ini) was incorrectly pointing at main.sock and should've been pointed at WatchHolder.sock
-
-Latest Update - Created an IP Passthrough on modem so that Raspberry Pi has public IP address
-
-Setup Dynu Dynamic DNS to update the IP address on my website whenever my Raspberry Pi has its IP address updated
-
-Am able to navigate to Raspberry Pi's IP address/port and see my website if I'm running it with gunicorn IP:Port where IP matches raspberry pi's public IP
-
-Getting a 502 Bad Gateway when trying to navigate to regular website/IP address
-
-Note that uwsgi and nginx are both set to start as services on startup
-
-To test just the uwsgi:
-
+To test just the uwsgi (note that I must activate the virtual environment because uwsgi is only installed in WatchHolder's virtual environment at `/home/pi/GitHub/WatchHolder/venv` and activate with `source venv/bin/activate`. Deactivate with `deactivate`):
 ```
 uwsgi --socket 0.0.0.0:8000 --protocol.http -w wsgi:app
 ```
+
+## To resume:
+1. Power on Raspberry Pi and plug into network
+    1. It should be that easy because both uwsgi and nginx are services that are set to start on power on
+    1. Make sure that the IP address of the raspberry pi matches the IPv4 listed in dynu.com/en-US/ControlPanel/DDNS, if not then Dynu will be redirecting to the wrong IP address
+    1. Check the status of the services with `sudo systemctl status WatchHolder` for the uwsgi status and `sudo systemctl status nginx` for the nginx status
+        1. Both should show `active(running)`
+        1. Can also verify that uwsgi is working correctly by navigating to `localhost` from raspberry pi
+    
+## Next Steps:
+1. Wire up actuator again to verify that calling the URL from outside actually triggers the actuator to move
+1. Setup google assistant actions to hit the URL on certain commands (will need to use IFTTT for this)
+1. Add LCD to raspberry pi to show IP address on it so that I can ssh into it from my chromebook and not have to get the raspberry pi setup all the time but rather just leave it plugged in.
