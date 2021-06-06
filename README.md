@@ -25,6 +25,7 @@ Should I start running my raspberry pi from anthonyjacques20.com??! And stop hos
 ## To resume:
 1. Need to access code from anywhere so Google Assistant can access it
 1. Need to figure out why we are getting a 502 Bad Gateway from nginx...
+    1. Was getting a 502 Bad Gateway from nginx because my uwsgi file (WatchHolder.ini) was incorrectly pointing at main.sock and should've been pointed at WatchHolder.sock
 
 Latest Update - Created an IP Passthrough on modem so that Raspberry Pi has public IP address
 
@@ -36,3 +37,8 @@ Getting a 502 Bad Gateway when trying to navigate to regular website/IP address
 
 Note that uwsgi and nginx are both set to start as services on startup
 
+To test just the uwsgi:
+
+```
+uwsgi --socket 0.0.0.0:8000 --protocol.http -w wsgi:app
+```
