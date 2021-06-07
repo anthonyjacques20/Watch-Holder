@@ -29,6 +29,8 @@ To test just the uwsgi (note that I must activate the virtual environment becaus
 uwsgi --socket 0.0.0.0:8000 --protocol.http -w wsgi:app
 ```
 
+Note that I was following this [Digital Ocean tutorial](https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uswgi-and-nginx-on-ubuntu-18-04)
+
 ## To resume:
 1. Power on Raspberry Pi and plug into network
     1. It should be that easy because both uwsgi and nginx are services that are set to start on power on
