@@ -34,7 +34,7 @@ Note that I was following this [Digital Ocean tutorial](https://www.digitalocean
 ## To resume:
 1. Power on Raspberry Pi and plug into network
     1. It should be that easy because both uwsgi and nginx are services that are set to start on power on
-    1. Make sure that the IP address of the raspberry pi matches the IPv4 listed in dynu.com/en-US/ControlPanel/DDNS, if not then Dynu will be redirecting to the wrong IP address
+    1. Make sure that the IP address of the raspberry pi matches the IPv4 listed in [dynu](dynu.com/en-US/ControlPanel/DDNS), if not then Dynu will be redirecting to the wrong IP address
     1. Check the status of the services with `sudo systemctl status WatchHolder` for the uwsgi status and `sudo systemctl status nginx` for the nginx status
         1. Both should show `active(running)`
         1. Can also verify that uwsgi is working correctly by navigating to `localhost` from raspberry pi
