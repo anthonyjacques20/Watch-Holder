@@ -37,8 +37,8 @@ def actuatorHome():
 
 @app.route('/actuator/off', methods=['GET'])
 def actuatorOff():
-    #actuator.Off()
-    return str(actuator.Off())
+    actuator.Off()
+    return str(actuator.IsOff())
 
 @app.route('/actuator/position', methods=['GET'])
 def actuatorPosition():

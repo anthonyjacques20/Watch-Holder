@@ -23,6 +23,7 @@ class Actuator:
         self.atHome = False
         self.atWork = True
         print("Sending actuator to work! Output1 is On. Output 2 is Off")
+        return 0
     
     def Home(self):
         self.output1.off()
@@ -30,17 +31,22 @@ class Actuator:
         self.atHome = True
         self.atWork = False
         print("Sending actuator to home! Output1 is Off. Output 2 is On")
+        return 0
         
     def Off(self):
         self.output1.off()
         self.output2.off()
         print("Sending actuator nowhere! Output1 is Off. Output 2 is Off")
+        return 0
         
     def IsAtHome(self):
         return self.atHome
     
     def IsAtWork(self):
         return self.atWork
+    
+    def IsOff(self):
+        return not (self.atHome or self.atWork)
     
     def Position(self):
         if self.atHome:
