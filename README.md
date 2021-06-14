@@ -45,10 +45,9 @@ Note that I was following this [Digital Ocean tutorial](https://www.digitalocean
         1. Can also verify that uwsgi is working correctly by navigating to `localhost` from raspberry pi
     
 ## Next Steps:
-1. Wire up actuator again to verify that calling the URL from outside actually triggers the actuator to move
-    1. Need to solder things together to have a more rigid solution
-    1. Wire up buttons and add to electrical drawings
 1. Setup google assistant actions to hit the URL on certain commands (will need to use IFTTT for this)
 1. Add LCD to raspberry pi to show IP address on it so that I can ssh into it from my chromebook and not have to get the raspberry pi setup all the time but rather just leave it plugged in.
 	1. To see the IP address, look at /home/pi/Sandbox/PrintIPAddress.py. It is a super simple program that uses netifaces to print the current IP Address to the console every 10 minutes
 	1. Need to make this python program run on startup and make it more robust
+1. Wire up buttons and add to electrical drawings
+1. Need to solder things together to have a more rigid solution
